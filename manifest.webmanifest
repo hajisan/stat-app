@@ -9,12 +9,12 @@
   "theme_color": "#050816",
   "icons": [
     {
-      "src": "icons/basketball-192.png",
+      "src": "icons/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/basketball-512.png",
+      "src": "icons/logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
