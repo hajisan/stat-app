@@ -1,0 +1,217 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    background: radial-gradient(circle at top, #111827, #020617 55%);
+    color: #f9fafb;
+}
+
+.app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 12px 32px;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.app-header h1 {
+    margin: 8px 0 4px;
+    font-size: 1.5rem;
+}
+
+.app-header p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.current-game h2,
+.history h2 {
+    margin: 8px 0;
+    font-size: 1.1rem;
+}
+
+.teams {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+@media (min-width: 640px) {
+    .teams {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.team-card {
+    background: linear-gradient(145deg, #020617, #020314);
+    border-radius: 14px;
+    padding: 10px 10px 12px;
+    border: 1px solid #1f2937;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.team-card h3 {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9ca3af;
+}
+
+.team-name {
+    width: 100%;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    background: #020617;
+    color: #f9fafb;
+    font-size: 0.9rem;
+}
+
+.team-name:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 1px #6366f1;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin: 4px 0;
+}
+
+.stat-row span:first-child {
+    font-size: 0.9rem;
+}
+
+.stat-count {
+    font-weight: 600;
+    font-size: 1rem;
+    min-width: 2.2rem;
+    text-align: center;
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: #111827;
+    color: #e5e7eb;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.btn:active {
+    transform: scale(0.96);
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background: #6366f1;
+    color: #f9fafb;
+}
+
+.btn-secondary {
+    background: #1d4ed8;
+    color: #f9fafb;
+}
+
+.btn-danger {
+    background: #b91c1c;
+    color: #fee2e2;
+}
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+}
+
+.actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.actions-row .btn {
+    flex: 1 1 30%;
+}
+
+.hint {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+.history {
+    margin-top: 20px;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.history-hint {
+    margin: 4px 0 6px;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-item {
+    background: #020617;
+    border-radius: 10px;
+    padding: 8px 10px;
+    border: 1px solid #1f2937;
+    font-size: 0.8rem;
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.history-item-teams {
+    font-size: 0.78rem;
+    color: #e5e7eb;
+}
+
+.history-item-stats {
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.empty-history {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-style: italic;
+}

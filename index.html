@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <title>Basket Stat Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050816" />
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.webmanifest" />
+
+    <!-- iOS “add to home screen” ikon (når du laver PNG’en) -->
+    <link rel="apple-touch-icon" href="icons/basketball-192.png" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+    <header class="app-header">
+        <h1>Basket Stat Tracker</h1>
+        <p>Track screens, turnovers og offensive rebounds pr. hold – også offline.</p>
+    </header>
+
+    <main>
+        <section class="current-game">
+            <h2>Aktuel kamp</h2>
+
+            <div class="teams">
+                <!-- Hold A -->
+                <article class="team-card" data-team="A">
+                    <h3>Hold A</h3>
+                    <input id="teamAName" class="team-name" value="Hold A" />
+
+                    <div class="stat-row">
+                        <span>Screens</span>
+                        <span id="A-screens" class="stat-count">0</span>
+                        <button data-team="A" data-stat="screens" class="btn btn-primary">+1</button>
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Turnovers</span>
+                        <span id="A-turnovers" class="stat-count">0</span>
+                        <button data-team="A" data-stat="turnovers" class="btn btn-primary">+1</button>
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Off. Rebounds</span>
+                        <span id="A-offRebounds" class="stat-count">0</span>
+                        <button data-team="A" data-stat="offRebounds" class="btn btn-primary">+1</button>
+                    </div>
+                </article>
+
+                <!-- Hold B -->
+                <article class="team-card" data-team="B">
+                    <h3>Hold B</h3>
+                    <input id="teamBName" class="team-name" value="Hold B" />
+
+                    <div class="stat-row">
+                        <span>Screens</span>
+                        <span id="B-screens" class="stat-count">0</span>
+                        <button data-team="B" data-stat="screens" class="btn btn-primary">+1</button>
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Turnovers</span>
+                        <span id="B-turnovers" class="stat-count">0</span>
+                        <button data-team="B" data-stat="turnovers" class="btn btn-primary">+1</button>
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Off. Rebounds</span>
+                        <span id="B-offRebounds" class="stat-count">0</span>
+                        <button data-team="B" data-stat="offRebounds" class="btn btn-primary">+1</button>
+                    </div>
+                </article>
+            </div>
+
+            <p class="hint">Tip: Lad en spiller på bænken styre appen, mens du coacher.</p>
+
+            <div class="actions-row">
+                <button id="resetGameBtn" class="btn btn-danger">Nulstil kamp</button>
+                <button id="saveGameBtn" class="btn btn-secondary">Gem kamp & ny kamp</button>
+                <button id="copyStatsBtn" class="btn btn-primary">Kopiér stats</button>
+            </div>
+        </section>
+
+        <section class="history">
+            <div class="history-header">
+                <h2>Kamp-historik</h2>
+                <button id="clearHistoryBtn" class="btn btn-danger btn-small">Ryd historik</button>
+            </div>
+            <p class="history-hint">Gemmer alle kampe lokalt på denne enhed.</p>
+            <div id="historyList" class="history-list"></div>
+        </section>
+    </main>
+</div>
+
+<script src="app.js"></script>
+<script>
+    // Registrér service worker (PWA/offline)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js')
+                .catch(err => console.error('Service worker fejl:', err));
+        });
+    }
+</script>
+</body>
+</html>
