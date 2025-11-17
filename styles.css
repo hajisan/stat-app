@@ -85,24 +85,29 @@ body {
     box-shadow: 0 0 0 1px #6366f1;
 }
 
+/* === STAT ROWS === */
+
 .stat-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto; /* label | minus | tal | plus */
     align-items: center;
-    justify-content: space-between;
-    gap: 6px;
+    column-gap: 6px;
     margin: 4px 0;
 }
 
-.stat-row span:first-child {
+.stat-label {
     font-size: 0.9rem;
 }
 
 .stat-count {
     font-weight: 600;
     font-size: 1rem;
-    min-width: 2.2rem;
+    min-width: 2.4rem;
     text-align: center;
+    font-variant-numeric: tabular-nums;
 }
+
+/* === BUTTONS === */
 
 .btn {
     border: none;
@@ -142,6 +147,20 @@ body {
 .btn-small {
     padding: 4px 8px;
     font-size: 0.75rem;
+}
+
+/* minus-knap */
+.btn-ghost {
+    background: #020617;
+    border: 1px solid #1f2937;
+    color: #e5e7eb;
+}
+
+/* samme bredde til +1 / − */
+.btn-square {
+    min-width: 40px;
+    justify-content: center;
+    padding-inline: 0;
 }
 
 .actions-row {

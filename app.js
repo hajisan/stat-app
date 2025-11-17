@@ -3,7 +3,7 @@ const STORAGE_KEY = 'stat-app-v1';
 let state = {
     nextGameId: 1,
     currentGame: null,
-    games: [] // ældre kampe gemmes her
+    games: []
 };
 
 function createEmptyGame() {
@@ -55,11 +55,9 @@ function saveState() {
 function applyStateToUI() {
     const g = state.currentGame;
 
-    // navne
     document.getElementById('teamAName').value = g.teamAName;
     document.getElementById('teamBName').value = g.teamBName;
 
-    // stats
     ['A', 'B'].forEach(team => {
         ['screens', 'turnovers', 'offRebounds'].forEach(statKey => {
             const id = `${team}-${statKey}`;
@@ -73,8 +71,10 @@ function applyStateToUI() {
     renderHistory();
 }
 
-function incrementStat(team, statKey) {
-    state.currentGame.stats[team][statKey]++;
+function changeStat(team, statKey, delta) {
+    const current = state.currentGame.stats[team][statKey];
+    const next = current + delta;
+    state.currentGame.stats[team][statKey] = Math.max(0, next);
     saveState();
     applyStateToUI();
 }
@@ -100,12 +100,10 @@ function hasAnyStats(game) {
 function saveGameAndNew() {
     const g = state.currentGame;
 
-    // opdater navne
     g.teamAName = document.getElementById('teamAName').value || 'Hold A';
     g.teamBName = document.getElementById('teamBName').value || 'Hold B';
 
     if (hasAnyStats(g)) {
-        // nyeste kamp først
         state.games.unshift(g);
     }
 
@@ -224,11 +222,13 @@ function clearHistory() {
 }
 
 function setupEventListeners() {
+    // plus/minus
     document.querySelectorAll('button[data-team]').forEach(btn => {
         btn.addEventListener('click', () => {
             const team = btn.getAttribute('data-team');
             const stat = btn.getAttribute('data-stat');
-            incrementStat(team, stat);
+            const delta = parseInt(btn.getAttribute('data-delta') || '1', 10);
+            changeStat(team, stat, delta);
         });
     });
 
