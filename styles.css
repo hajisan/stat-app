@@ -1,5 +1,11 @@
 /* ===== Global layout & scroll kontrol ===== */
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html,
 body {
     margin: 0;
