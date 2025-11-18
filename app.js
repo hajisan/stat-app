@@ -6,6 +6,25 @@ let state = {
     games: []
 };
 
+/* ===== Utils: haptics & animation ===== */
+
+function haptic(type = 'light') {
+    if (!('vibrate' in navigator)) return; // iOS ignorerer alligevel
+    if (type === 'light') {
+        navigator.vibrate(10);
+    } else if (type === 'medium') {
+        navigator.vibrate([0, 15, 5, 15]);
+    }
+}
+
+function animatePress(el) {
+    if (!el) return;
+    el.classList.add('btn-press');
+    setTimeout(() => el.classList.remove('btn-press'), 120);
+}
+
+/* ===== State-håndtering ===== */
+
 function createEmptyGame() {
     const now = new Date();
     return {
@@ -71,13 +90,19 @@ function applyStateToUI() {
     renderHistory();
 }
 
-function changeStat(team, statKey, delta) {
+function changeStat(team, statKey, delta, triggerElement) {
     const current = state.currentGame.stats[team][statKey];
     const next = current + delta;
     state.currentGame.stats[team][statKey] = Math.max(0, next);
     saveState();
     applyStateToUI();
+
+    // feedback
+    animatePress(triggerElement);
+    haptic(delta > 0 ? 'light' : 'medium');
 }
+
+/* ===== Game handling ===== */
 
 function resetCurrentGame() {
     if (!confirm('Nulstil stats for denne kamp?')) return;
@@ -111,6 +136,8 @@ function saveGameAndNew() {
     saveState();
     applyStateToUI();
 }
+
+/* ===== Copy stats ===== */
 
 function copyStats() {
     const g = state.currentGame;
@@ -161,6 +188,8 @@ function fallbackCopy(text) {
     }
     document.body.removeChild(ta);
 }
+
+/* ===== History ===== */
 
 function formatDateTime(isoString) {
     const d = new Date(isoString);
@@ -221,16 +250,18 @@ function clearHistory() {
     renderHistory();
 }
 
+/* ===== Event listeners ===== */
+
 function setupEventListeners() {
-    // nye store knapper + minus
+    // store knapper + minus
     document.querySelectorAll('.stat-row-block').forEach(row => {
         const team = row.getAttribute('data-team');
         const stat = row.getAttribute('data-stat');
         const mainBtn = row.querySelector('.stat-main-btn');
         const minusBtn = row.querySelector('.stat-minus-btn');
 
-        mainBtn.addEventListener('click', () => changeStat(team, stat, +1));
-        minusBtn.addEventListener('click', () => changeStat(team, stat, -1));
+        mainBtn.addEventListener('click', () => changeStat(team, stat, +1, mainBtn));
+        minusBtn.addEventListener('click', () => changeStat(team, stat, -1, minusBtn));
     });
 
     document.getElementById('teamAName').addEventListener('change', e => {

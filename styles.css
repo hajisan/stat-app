@@ -1,36 +1,39 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+/* ===== Global layout & scroll kontrol ===== */
 
-html, body {
+html,
+body {
     margin: 0;
+    padding: 0;
     height: 100%;
-    overflow: hidden; /* siden må ikke scrolle */
-    font-family: system-ui, -apple-system, BlinkMacSystemFront, "SF Pro Text", sans-serifs;
-    background: radial-gradient(circle at top, #111827, #020617, 55%);
-    color: #f9fafb
+    overflow: hidden;                 /* body må IKKE scrolle */
+    overscroll-behavior: none;        /* stop browser-overscroll */
+    background: #020617;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    color: #f9fafb;
+    touch-action: none;               /* vi styrer selv pan */
 }
 
 body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
     background: radial-gradient(circle at top, #111827, #020617 55%);
-    color: #f9fafb;
 }
+
+/* App-container er vores “scroll view” */
 
 .app {
     max-width: 960px;
     margin: 0 auto;
     padding: 12px 12px 32px;
-
-    height: 100%;                       /* fyld hele viewport-højden */
-    overflow-y: auto;                   /* scroll kun herinde */
-    overscroll-behavior-y: contain;     /* prøv at hold scroll her */
-    -webkit-overflow-scrolling: touch;  /* smooth iOS-scroll */
+    height: 100vh;                    /* fallback */
+    height: 100dvh;                   /* moderne iOS/Chrome */
+    overflow-y: auto;                 /* kun her må der scrolles */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;/* inertial scroll på iOS */
+    overscroll-behavior-y: contain;   /* ingen pull-to-refresh */
+    overscroll-behavior-x: none;
+    touch-action: pan-y;              /* tillad kun vertikal pan her */
 }
+
+/* ===== Header & sektioner ===== */
 
 .app-header {
     text-align: center;
@@ -53,6 +56,8 @@ body {
     margin: 8px 0;
     font-size: 1.1rem;
 }
+
+/* ===== Team cards ===== */
 
 .teams {
     display: grid;
@@ -99,7 +104,8 @@ body {
     box-shadow: 0 0 0 1px #6366f1;
 }
 
-/* === STAT ROWS: stor knap, tal, minus === */
+/* ===== Stat rows: stor knap + tal + minus ===== */
+
 .stat-row-block {
     display: grid;
     grid-template-columns: 1fr auto auto; /* stor knap | tal | minus */
@@ -108,31 +114,30 @@ body {
     margin: 6px 0;
 }
 
+.stat-main-btn,
+.stat-minus-btn {
+    transition:
+        transform 120ms ease-out,
+        box-shadow 120ms ease-out,
+        opacity 120ms ease-out;
+}
+
+/* stor knap */
+
 .stat-main-btn {
     border: none;
     border-radius: 999px;
     padding: 10px 14px;
     font-size: 0.95rem;
     font-weight: 600;
-    text-align: center; /* centreret tekst */
+    text-align: center;
     background: #111827;
     color: #f9fafb;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
     width: 100%;
 }
 
-.stat-main-btn:active {
-    transform: scale(0.97);
-    opacity: 0.9;
-}
-
-.stat-count {
-    font-weight: 600;
-    font-size: 1rem;
-    min-width: 2.4rem;
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-}
+/* minus-knap */
 
 .stat-minus-btn {
     border-radius: 999px;
@@ -148,12 +153,24 @@ body {
     font-weight: 600;
 }
 
-.stat-minus-btn:active {
-    transform: scale(0.95);
+/* “spring” animation via JS-klasse */
+
+.btn-press {
+    transform: scale(0.96) translateY(1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     opacity: 0.9;
 }
 
-/* === GENERELLE KNAPPER === */
+.stat-count {
+    font-weight: 600;
+    font-size: 1rem;
+    min-width: 2.4rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ===== Generelle knapper ===== */
+
 .btn {
     border: none;
     border-radius: 999px;
@@ -167,10 +184,14 @@ body {
     align-items: center;
     justify-content: center;
     gap: 4px;
+    transition:
+        transform 120ms ease-out,
+        box-shadow 120ms ease-out,
+        opacity 120ms ease-out;
 }
 
 .btn:active {
-    transform: scale(0.96);
+    transform: scale(0.96) translateY(1px);
     opacity: 0.9;
 }
 
@@ -204,6 +225,8 @@ body {
 .actions-row .btn {
     flex: 1 1 30%;
 }
+
+/* ===== History ===== */
 
 .hint {
     font-size: 0.75rem;
