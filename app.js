@@ -6,6 +6,8 @@ let state = {
     games: []
 };
 
+let actionStack = []; // til undo sidste handling
+
 /* ===== Utils: haptics & animation ===== */
 
 function isIOS() {
@@ -111,12 +113,35 @@ function changeStat(team, statKey, delta, triggerElement) {
     const current = state.currentGame.stats[team][statKey];
     const next = current + delta;
     state.currentGame.stats[team][statKey] = Math.max(0, next);
+
+    // Gem handlingen til undo (team A/B, hvilken stat, og hver der blev lagt til)
+    actionStack.push({ team, statKey, delta });
+
     saveState();
     applyStateToUI();
 
     // feedback
     animatePress(triggerElement);
     haptic(delta > 0 ? 'light' : 'medium');
+}
+
+function undoLastAction() {
+    if (!actionStack.length) {
+        alert('Ingen handling at fortryde.');
+        return;
+    }
+
+    const last = actionStack.pop();
+    const { team, statKey, delta } = last;
+
+    // vi laver den MODSATTE ændring: -delta
+    const current = state.currentGame.stats[team][statKey];
+    const next = current - delta;
+    state.currentGame.stats[team][statKey] = Math.max(0, next);
+
+    saveState();
+    applyStateToUI();
+    haptic('medium');
 }
 
 /* ===== Game handling ===== */
@@ -290,6 +315,7 @@ function setupEventListeners() {
         saveState();
     });
 
+    document.getElementById('undoBtn').addEventListener('click', undoLastAction);
     document.getElementById('resetGameBtn').addEventListener('click', resetCurrentGame);
     document.getElementById('saveGameBtn').addEventListener('click', saveGameAndNew);
     document.getElementById('copyStatsBtn').addEventListener('click', copyStats);
@@ -300,3 +326,12 @@ window.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     loadState();
 });
+
+// Auto-save hver 5. sekund
+setInterval(() => {
+    try {
+        saveState();
+    } catch (e) {
+        console.error('Auto-save failed', e);
+    }
+}, 5000);
