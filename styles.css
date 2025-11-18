@@ -5,6 +5,15 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden; /* siden må ikke scrolle */
+    font-family: system-ui, -apple-system, BlinkMacSystemFront, "SF Pro Text", sans-serifs;
+    background: radial-gradient(circle at top, #111827, #020617, 55%);
+    color: #f9fafb
+}
+
 body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
@@ -16,6 +25,11 @@ body {
     max-width: 960px;
     margin: 0 auto;
     padding: 12px 12px 32px;
+
+    height: 100%;                       /* fyld hele viewport-højden */
+    overflow-y: auto;                   /* scroll kun herinde */
+    overscroll-behavior-y: contain;     /* prøv at hold scroll her */
+    -webkit-overflow-scrolling: touch;  /* smooth iOS-scroll */
 }
 
 .app-header {
