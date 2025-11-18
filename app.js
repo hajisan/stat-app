@@ -222,14 +222,15 @@ function clearHistory() {
 }
 
 function setupEventListeners() {
-    // plus/minus
-    document.querySelectorAll('button[data-team]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const team = btn.getAttribute('data-team');
-            const stat = btn.getAttribute('data-stat');
-            const delta = parseInt(btn.getAttribute('data-delta') || '1', 10);
-            changeStat(team, stat, delta);
-        });
+    // nye store knapper + minus
+    document.querySelectorAll('.stat-row-block').forEach(row => {
+        const team = row.getAttribute('data-team');
+        const stat = row.getAttribute('data-stat');
+        const mainBtn = row.querySelector('.stat-main-btn');
+        const minusBtn = row.querySelector('.stat-minus-btn');
+
+        mainBtn.addEventListener('click', () => changeStat(team, stat, +1));
+        minusBtn.addEventListener('click', () => changeStat(team, stat, -1));
     });
 
     document.getElementById('teamAName').addEventListener('change', e => {

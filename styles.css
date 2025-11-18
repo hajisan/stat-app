@@ -85,18 +85,31 @@ body {
     box-shadow: 0 0 0 1px #6366f1;
 }
 
-/* === STAT ROWS === */
-
-.stat-row {
+/* === STAT ROWS: stor knap, tal, minus === */
+.stat-row-block {
     display: grid;
-    grid-template-columns: 1fr auto auto auto; /* label | minus | tal | plus */
+    grid-template-columns: 1fr auto auto; /* stor knap | tal | minus */
     align-items: center;
-    column-gap: 6px;
-    margin: 4px 0;
+    column-gap: 8px;
+    margin: 6px 0;
 }
 
-.stat-label {
-    font-size: 0.9rem;
+.stat-main-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center; /* centreret tekst */
+    background: #111827;
+    color: #f9fafb;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    width: 100%;
+}
+
+.stat-main-btn:active {
+    transform: scale(0.97);
+    opacity: 0.9;
 }
 
 .stat-count {
@@ -107,12 +120,30 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
-/* === BUTTONS === */
+.stat-minus-btn {
+    border-radius: 999px;
+    border: 1px solid #4b5563;
+    background: transparent;
+    color: #e5e7eb;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
 
+.stat-minus-btn:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+}
+
+/* === GENERELLE KNAPPER === */
 .btn {
     border: none;
     border-radius: 999px;
-    padding: 6px 12px;
+    padding: 8px 14px;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
@@ -147,20 +178,6 @@ body {
 .btn-small {
     padding: 4px 8px;
     font-size: 0.75rem;
-}
-
-/* minus-knap */
-.btn-ghost {
-    background: #020617;
-    border: 1px solid #1f2937;
-    color: #e5e7eb;
-}
-
-/* samme bredde til +1 / − */
-.btn-square {
-    min-width: 40px;
-    justify-content: center;
-    padding-inline: 0;
 }
 
 .actions-row {

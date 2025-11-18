@@ -32,55 +32,34 @@
                     <h3>HOLD A</h3>
                     <input id="teamAName" class="team-name" value="Hold A" />
 
-                    <div class="stat-row">
-                        <span class="stat-label">Screens</span>
-                        <button
-                            class="btn btn-ghost btn-square"
-                            data-team="A"
-                            data-stat="screens"
-                            data-delta="-1"
-                        >−</button>
+                    <div class="stat-row-block" data-team="A" data-stat="screens">
+                        <button class="stat-main-btn" type="button">
+                            Screens
+                        </button>
                         <span id="A-screens" class="stat-count">0</span>
-                        <button
-                            class="btn btn-primary btn-square"
-                            data-team="A"
-                            data-stat="screens"
-                            data-delta="1"
-                        >+1</button>
+                        <button class="stat-minus-btn" type="button">
+                            −
+                        </button>
                     </div>
 
-                    <div class="stat-row">
-                        <span class="stat-label">Turnovers</span>
-                        <button
-                            class="btn btn-ghost btn-square"
-                            data-team="A"
-                            data-stat="turnovers"
-                            data-delta="-1"
-                        >−</button>
+                    <div class="stat-row-block" data-team="A" data-stat="turnovers">
+                        <button class="stat-main-btn" type="button">
+                            Turnovers
+                        </button>
                         <span id="A-turnovers" class="stat-count">0</span>
-                        <button
-                            class="btn btn-primary btn-square"
-                            data-team="A"
-                            data-stat="turnovers"
-                            data-delta="1"
-                        >+1</button>
+                        <button class="stat-minus-btn" type="button">
+                            −
+                        </button>
                     </div>
 
-                    <div class="stat-row">
-                        <span class="stat-label">Off. Rebounds</span>
-                        <button
-                            class="btn btn-ghost btn-square"
-                            data-team="A"
-                            data-stat="offRebounds"
-                            data-delta="-1"
-                        >−</button>
+                    <div class="stat-row-block" data-team="A" data-stat="offRebounds">
+                        <button class="stat-main-btn" type="button">
+                            Off. Rebounds
+                        </button>
                         <span id="A-offRebounds" class="stat-count">0</span>
-                        <button
-                            class="btn btn-primary btn-square"
-                            data-team="A"
-                            data-stat="offRebounds"
-                            data-delta="1"
-                        >+1</button>
+                        <button class="stat-minus-btn" type="button">
+                            −
+                        </button>
                     </div>
                 </article>
 
@@ -89,55 +68,34 @@
                     <h3>HOLD B</h3>
                     <input id="teamBName" class="team-name" value="Hold B" />
 
-                    <div class="stat-row">
-                        <span class="stat-label">Screens</span>
-                        <button
-                            class="btn btn-ghost btn-square"
-                            data-team="B"
-                            data-stat="screens"
-                            data-delta="-1"
-                        >−</button>
+                    <div class="stat-row-block" data-team="B" data-stat="screens">
+                        <button class="stat-main-btn" type="button">
+                            Screens
+                        </button>
                         <span id="B-screens" class="stat-count">0</span>
-                        <button
-                            class="btn btn-primary btn-square"
-                            data-team="B"
-                            data-stat="screens"
-                            data-delta="1"
-                        >+1</button>
+                        <button class="stat-minus-btn" type="button">
+                            −
+                        </button>
                     </div>
 
-                    <div class="stat-row">
-                        <span class="stat-label">Turnovers</span>
-                        <button
-                            class="btn btn-ghost btn-square"
-                            data-team="B"
-                            data-stat="turnovers"
-                            data-delta="-1"
-                        >−</button>
+                    <div class="stat-row-block" data-team="B" data-stat="turnovers">
+                        <button class="stat-main-btn" type="button">
+                            Turnovers
+                        </button>
                         <span id="B-turnovers" class="stat-count">0</span>
-                        <button
-                            class="btn btn-primary btn-square"
-                            data-team="B"
-                            data-stat="turnovers"
-                            data-delta="1"
-                        >+1</button>
+                        <button class="stat-minus-btn" type="button">
+                            −
+                        </button>
                     </div>
 
-                    <div class="stat-row">
-                        <span class="stat-label">Off. Rebounds</span>
-                        <button
-                            class="btn btn-ghost btn-square"
-                            data-team="B"
-                            data-stat="offRebounds"
-                            data-delta="-1"
-                        >−</button>
+                    <div class="stat-row-block" data-team="B" data-stat="offRebounds">
+                        <button class="stat-main-btn" type="button">
+                            Off. Rebounds
+                        </button>
                         <span id="B-offRebounds" class="stat-count">0</span>
-                        <button
-                            class="btn btn-primary btn-square"
-                            data-team="B"
-                            data-stat="offRebounds"
-                            data-delta="1"
-                        >+1</button>
+                        <button class="stat-minus-btn" type="button">
+                            −
+                        </button>
                     </div>
                 </article>
             </div>
@@ -164,10 +122,11 @@
 
 <script src="app.js"></script>
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('service-worker.js')
-                .catch(err => console.error('Service worker fejl:', err));
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("service-worker.js")
+                .catch((err) => console.error("Service worker fejl:", err));
         });
     }
 </script>
