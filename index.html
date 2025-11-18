@@ -15,6 +15,21 @@
 
     <link rel="stylesheet" href="styles.css" />
 </head>
+
+<!-- Hidden iOS haptic switch hack -->
+<input
+  type="checkbox"
+  id="iosHapticSwitch"
+  switch
+  style="position:absolute; opacity:0; pointer-events:none; width:0; height:0;"
+/>
+<label
+  for="iosHapticSwitch"
+  id="iosHapticLabel"
+  style="position:absolute; opacity:0; pointer-events:none; width:0; height:0;"
+>
+</label>
+
 <body>
 <div class="app">
     <header class="app-header">

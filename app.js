@@ -8,12 +8,29 @@ let state = {
 
 /* ===== Utils: haptics & animation ===== */
 
+function isIOS() {
+    return /iP(hone|od|ad)/.test(navigator.userAgent);
+}
+
 function haptic(type = 'light') {
-    if (!('vibrate' in navigator)) return; // iOS ignorerer alligevel
-    if (type === 'light') {
-        navigator.vibrate(10);
-    } else if (type === 'medium') {
-        navigator.vibrate([0, 15, 5, 15]);
+    // 1) Hvis vibration API findes (Android / evt. fremtidig iOS) → brug det
+    if ('vibrate' in navigator) {
+        if (type === 'light') navigator.vibrate(15);
+        else if (type === 'medium') navigator.vibrate([0, 20, 30, 20]);
+        return;
+    }
+
+    // 2) iOS 18+ hack via hidden switch
+    if (isIOS()) {
+        const checkbox = document.getElementById('iosHapticSwitch');
+        const label = document.getElementById('iosHapticLabel');
+        if (!checkbox || !label) return;
+
+        // toggle værdi for at sikre state-change
+        checkbox.checked = !checkbox.checked;
+
+        // TRICK: klik på label i stedet for input → giver haptic
+        label.click();
     }
 }
 
